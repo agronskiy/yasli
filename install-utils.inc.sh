@@ -29,3 +29,10 @@ install_wrapper() {
     log_success "Successfully installed $1"
   fi
 }
+
+# Required by some installers.
+prepare_debian_installation() {
+  export DEBIAN_FRONTEND=noninteractive
+  log_info "Preparing non-interactive install"
+  export TZ=Etc/UTC apt-get -y install tzdata 2>&1 | log_cmd || log_fail "Failed to prepare location information"
+}
