@@ -4,5 +4,5 @@ set -eo pipefail
 
 YASLI_DIR="$(dirname "$0")"
 
-./link
-./install
+$YASLI_DIR/yasli-link
+$YASLI_DIR/yasli-install
