@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-mkdir -p "${HOME}/bin"
+YASLI_DIR="$(dirname "$0")"
 
 ./link
 ./install
