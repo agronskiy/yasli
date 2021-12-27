@@ -33,6 +33,4 @@ install_wrapper() {
 # Required by some installers.
 prepare_debian_installation() {
   export DEBIAN_FRONTEND=noninteractive
-  log_info "Preparing non-interactive install"
-  export TZ=Etc/UTC $SUDO_CMD apt-get -y install tzdata 2>&1 | log_cmd || log_fail "Failed to prepare location information"
 }
