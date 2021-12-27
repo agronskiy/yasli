@@ -18,7 +18,7 @@ To enable your new config file or another installer, you just add that file (wit
 
 # What it is not
 
-It is not replacement for Ansible or other provisioning software. It 
+It is not replacement for Ansible or other provisioning software. It _just automates_ what you otherwise would have typed into your command line. Thus saving you time to properly store your favourite configs and tools as persistent files in a repo, not as a set of steps in some readme.
 
 # Installation
 
