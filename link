@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+YASLI_DIR="$(dirname "$0")"
+source $YASLI_DIR/logging.inc.sh
+source $YASLI_DIR/install-utils.inc.sh
+
+[ -z $DOTFILES ] && DOTFILES=$HOME/.dotfiles
+[ -d $DOTFILES ] || log_fail "Requested dotfiles directory not found: $DOTFILES"
+
+cd $DOTFILES
+
+__link_single_file () {
+  local src=$1 dst=$2
+
+  local overwrite= backup= skip=
+  local action=
+
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  then
+
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+    then
+
+        local currentSrc=$(readlink "$dst")
+
+        if [ "$currentSrc" == "$src" ]
+        then
+
+            skip=true;
+
+        else
+
+            log_user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+            [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+            read -n 1 action </dev/tty
+
+            case "$action" in
+            o )
+                overwrite=true;;
+            O )
+                overwrite_all=true;;
+            b )
+                backup=true;;
+            B )
+                backup_all=true;;
+            s )
+                skip=true;;
+            S )
+                skip_all=true;;
+            * )
+                ;;
+            esac
+        fi
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ "$overwrite" == "true" ]
+    then
+      rm -rf "$dst"
+      log_success "removed $dst"
+    fi
+
+    if [ "$backup" == "true" ]
+    then
+      mv "$dst" "${dst}.backup"
+      log_success "moved $dst to ${dst}.backup"
+    fi
+
+    if [ "$skip" == "true" ]
+    then
+      log_success "skipped $src"
+    fi
+  fi
+
+  if [ "$skip" != "true" ]  # "false" or empty
+  then
+    ln -s "$1" "$2"
+    log_success "linked $1 to $2"
+  fi
+}
+
+__link_all_dotfiles () {
+    log_info 'Linking all dotfiles'
+
+    local overwrite_all=false backup_all=false skip_all=false
+
+    local verbose=${DOTFILES}/_verbose/
+
+    find -H "$DOTFILES" -maxdepth 10 -name "*.symlink" -not -path '*.git*' -print0 | while IFS= read -r -d '' src; do
+        if [[ "$src" == *'/_verbose/'* ]]; then
+            # We assume everything in our '_verbose' dir should actually be linked
+            # mirroring the exact directory structure into our home dir.
+
+            dir="$(dirname "${src:${#verbose}}")"
+            mkdir -p "$HOME/$dir"
+
+            # Also, we no longer auto-add the dot in front of the filename.
+            dst="$HOME/$dir/$(basename "${src%.*}")"
+        else
+            # Everything not in '._verbose' will be linked directly into $HOME, with
+            # a '.' automatically added to the file name.
+            dst="$HOME/.$(basename "${src%.*}")"
+        fi
+        __link_single_file "$src" "$dst"
+    done
+}
+
+__link_all_dotfiles
