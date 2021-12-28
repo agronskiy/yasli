@@ -33,4 +33,5 @@ install_wrapper() {
 # Required by some installers.
 prepare_debian_installation() {
   export DEBIAN_FRONTEND=noninteractive
+  $SUDO_CMD apt-get update
 }

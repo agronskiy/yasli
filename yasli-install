@@ -19,7 +19,7 @@ else
   SUDO_CMD=
 fi
 
-prepare_debian_installation
+[ "$(uname -s)" == "Linux" ] && prepare_debian_installation
 
 # Priority install: everything that normal install needs.
 failed_installers=()
