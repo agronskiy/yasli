@@ -1,0 +1,26 @@
+name: Ubuntu LTS 20.04 Test Installation
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  run-github-ubuntu-installation:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Will run test installation on ubuntu."
+      - run: sudo apt-get install git zsh
+      - name: Check out dotfiles
+        uses: actions/checkout@v2
+        with:
+          repository: agronskiy/configs
+          path: .dotfiles
+      - name: Check out yasli
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.ref }}
+          path: .yasli
+      - run: echo $PWD
+      - name: Performing installation
+        run: DOTFILES=${{ github.workspace }}/.dotfiles ./.yasli/yasli-main
+      - run: echo "This job's status is ${{ job.status }}."

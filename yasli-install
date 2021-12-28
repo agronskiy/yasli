@@ -26,9 +26,12 @@ failed_installers=()
 install_order=( "yasli.pre" "yasli" "yasli.post" )
 for order in "${install_order[@]}"
 do
-    while read installer ; do
+    # This way of reading into array is preferred, see
+    # https://stackoverflow.com/questions/11426529/reading-output-of-a-command-into-an-array-in-bash
+    IFS=$'\n' read -r -d '' -a installers < <( find "$DOTFILES" -type f -name "*${order}.sh" && printf '\0' )
+    for installer in "${installers[@]}"
+    do
         [ -z ${installer} ] && continue
-
         # Don't install `*.linux.install.sh` on non-linux
         if [[ "${installer}" == *linux.${order}.sh ]] && [ "$(uname -s)" != "Linux" ]; then
             log_success "Skipped linux-specific stuff in ${installer}"
@@ -47,11 +50,11 @@ do
             source "${installer}"
         ) || failed_installers+=( "${installer}" )
 
-    # The reasn for here string is modifying the `failed_installers` - we need while to be run
-    # not as a subshell
-    done <<< "$(find "$DOTFILES" -type f -name "*${order}.sh")"
+    done
 done
 
 if [ ! ${#failed_installers[@]} -eq 0 ]; then
     log_fail "Some installers failed: ${failed_installers[@]}"
 fi
+
+log_success "Done!"
