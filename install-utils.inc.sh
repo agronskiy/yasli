@@ -33,5 +33,7 @@ install_wrapper() {
 # Required by some installers.
 prepare_debian_installation() {
   export DEBIAN_FRONTEND=noninteractive
-  $SUDO_CMD apt-get update
+  log_info "Running apt update"
+  $SUDO_CMD apt-get update 2>&1 | log_cmd || log_fail "Failed apt update"
+  log_success "Success apt update"
 }
