@@ -1,4 +1,4 @@
-name: Macos Test Installation
+name: macos Deployment/Idempotence Test
 on:
   workflow_dispatch:
   push:
@@ -21,5 +21,7 @@ jobs:
           path: .yasli
       - run: echo $PWD
       - name: Performing installation
+        run: DOTFILES=${{ github.workspace }}/.dotfiles ./.yasli/yasli-main
+      - name: Checking idempotence
         run: DOTFILES=${{ github.workspace }}/.dotfiles ./.yasli/yasli-main
       - run: echo "This job's status is ${{ job.status }}."
