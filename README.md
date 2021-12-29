@@ -1,4 +1,6 @@
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ![Ubuntu Test Install](https://github.com/agronskiy/yasli/actions/workflows/ubuntu-test.yml/badge.svg)
 ![Macos Test Install](https://github.com/agronskiy/yasli/actions/workflows/macos-test.yml/badge.svg)
 
