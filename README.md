@@ -1,37 +1,52 @@
-## Welcome to GitHub Pages
+# yasli
 
-You can use the [editor on GitHub](https://github.com/agronskiy/yasli/edit/gh-pages/README.md) to maintain and preview the content for your website in Markdown files.
+<p align="center">
+<a href="https://asciinema.org/a/2fPuaxRFuRH7MekwV8vKFKQDF"><img alt="Example of running" src="https://user-images.githubusercontent.com/9802715/146839432-fc9d8eee-a2bd-469e-b53e-52bcd5133617.gif" width="70%"></a>
+</p>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<p align="center">
+<img src="https://badgen.net/badge/license/MIT/blue?label=License&icon=https%3A%2F%2Fapi.iconify.design%2Focticon%2Flaw-16.svg%3Fcolor%3Dwhite">
+<img src="https://github.com/agronskiy/yasli/actions/workflows/ubuntu-test.yml/badge.svg">
+<img src="https://github.com/agronskiy/yasli/actions/workflows/macos-test.yml/badge.svg">
+<br/>
+<a href="https://github.com/agronskiy/dotfiles"><img src="https://badgen.net/badge/Used%20by/agronskiy%2Fdotfiles/orange"></a>
+</p>
 
-### Markdown
+## About
+YASLI (in Russian, "yasli", "ясли", means "crib" or "nursery" - something from where the new life is bootstrapped) – **Y**et **A**nother **S**imple **L**inker and **I**nstaller for your dotfiles and/or tools environment.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+As software engineers, we set up our terminal tooling and dotfiles in new environments - every now and then. This simple yet ready-to-use boilerplate, called "Yasli", automates the two main points a typical terminal user performs to set up a new machine:
+- Links config files from a given source (e.g. your repository) into `$HOME`. Linking is non-invasive: if something is already there, it can be chosen to stay or be overwritten.
+- Performs installs (priority control included) from a given source, written in the form of dead-simple script files. This reflects how we usually do our installations ourselves, `brew install`, `apt-get install`, or build from source. Just automated and
+  - with basic priority (but not dependency) control - you want `curl` installed before you build other tools, right?
+  - with built-in check for `Darwin` vs `Ubuntu` platforms. Adding others is simple.
 
-```markdown
-Syntax highlighted code block
+Additionally,
+- Comprehensive, indent-based logging
+- Handles errors nicely. Yes, you don't need to think about ["Why this failing script does not fail?"](https://gist.github.com/agronskiy/bc9f8b916e6a0a357de8c360dea4d788#warmer)
+- Wrappers for common operations
 
-# Header 1
-## Header 2
-### Header 3
+Yasli runs as Bash framework just because it is 100% present on the target system, even though you can use it for setting up your favorite `.zshrc` or anything else.
 
-- Bulleted
-- List
+To enable your new config file or another installer, you just add that file (with special extension) - Yasli will pick it up.
 
-1. Numbered
-2. List
+## What it is not
 
-**Bold** and _Italic_ and `Code` text
+It is not replacement for Ansible or other provisioning software. It _just automates_ what you otherwise would have typed into your command line. Thus saving you time to properly store your favorite configs and tools as persistent files in a repo, not as a set of steps in some readme.
 
-[Link](url) and ![Image](src)
+## Installation
+
+![https://badgen.net/badge/Status/WIP/orange](https://badgen.net/badge/Status/WIP/orange)
+
+Clone repo to the location of your liking, such as `~/.yasli`:
+```bash
+git clone https://github.com/agronskiy/yasli.git ~/.yasli
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+Run linkers and insallers that are located in `<any_path>`:
+```bash
+DOTFILES=<any_path> ~/.yasli/yasli-main
+```
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/agronskiy/yasli/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Credits and inspiration
+This started as a heavily adjusted version by @holman.
