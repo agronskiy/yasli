@@ -9,11 +9,11 @@
 <img src="https://github.com/agronskiy/yasli/actions/workflows/ubuntu-test.yml/badge.svg">
 <img src="https://github.com/agronskiy/yasli/actions/workflows/macos-test.yml/badge.svg">
 <br/>
-<a href="https://github.com/agronskiy/dotfiles"><img src="https://badgen.net/badge/Used%20by/agronskiy%2Fdotfiles/orange"></a>
+<a href="https://github.com/agronskiy/dotfiles"><img src="https://badgen.net/badge/Used%20by/agronskiy%2Fdotfiles/cyan"></a>
 </p>
 
 ## About
-YASLI (in Russian, "yasli", "ясли", means "crib" or "nursery" - something from where the new life is bootstrapped) – **Y**et **A**nother **S**imple **L**inker and **I**nstaller for your dotfiles and/or tools environment.
+YASLI (in Russian, "yasli", "ясли", means "crib" or "nursery" - something from where the new life is bootstrapped) – **Y**et **A**nother **S**etup **L**inker and **I**nstaller for your dotfiles and/or tools environment.
 
 As software engineers, we set up our terminal tooling and dotfiles in new environments - every now and then. This simple yet ready-to-use boilerplate, called "Yasli", automates the two main points a typical terminal user performs to set up a new machine:
 - Links config files from a given source (e.g. your repository) into `$HOME`. Linking is non-invasive: if something is already there, it can be chosen to stay or be overwritten.
