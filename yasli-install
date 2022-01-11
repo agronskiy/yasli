@@ -11,7 +11,7 @@ source $YASLI_DIR/install-utils.inc.sh
 
 cd $DOTFILES
 
-INDENT_NUM=2
+INDENT_NUM=1
 
 if [ "$EUID" -ne 0 ]; then
   SUDO_CMD=sudo
