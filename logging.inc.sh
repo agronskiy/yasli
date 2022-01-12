@@ -15,8 +15,9 @@ __repeat() {
 
 __make_indent() {
   n=$(( ${INDENT_NUM:-1} - 1 ))
-  indent=$(__repeat $n '│~~~~' )
-  echo $indent"├─~" | sed 's/~/ /g'
+  indent='~'
+  indent=$indent"$(__repeat $n '~~├─~' )"
+  echo $indent | sed 's/~/ /g'
 }
 
 # Can be used to pipe
@@ -44,12 +45,12 @@ log_cmd () {
   if [ -z "$1" ]; then
       while IFS= read -r line
       do
-          printf "\r$indent${MAGENDA}LOG:${RESTORE} %s\n" "$line"
+          printf "\r$indent${MAGENDA}[LOG]:${RESTORE} %s\n" "$line"
       done
   else
       while IFS= read -r line
       do
-          printf "\r$indent${MAGENDA}LOG:${RESTORE} %s\n" "$line"
+          printf "\r$indent${MAGENDA}[LOG]:${RESTORE} %s\n" "$line"
       done < <(printf '%s\n' "$1")
   fi
 }
@@ -61,7 +62,7 @@ log_user () {
 
 log_success () {
   indent=$(__make_indent)
-  printf "\r\033[2K$indent$BOLD[ ${GREEN}OK${RESTORE}${BOLD} ]${RESTORE}  %s\n" "$1"
+  printf "\r\033[2K$indent$BOLD[ ${GREEN}OK${RESTORE}${BOLD} ]${RESTORE} %s\n" "$1"
 }
 
 log_fail () {
