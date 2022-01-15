@@ -1,7 +1,7 @@
 # yasli
 
 <p align="center">
-<a href="https://asciinema.org/a/2fPuaxRFuRH7MekwV8vKFKQDF"><img alt="Example of running" src="https://user-images.githubusercontent.com/9802715/146839432-fc9d8eee-a2bd-469e-b53e-52bcd5133617.gif" width="70%"></a>
+<a href="https://asciinema.org/a/461991" target="_blank"><img src="https://asciinema.org/a/461991.svg" width="90%" /></a>
 </p>
 
 <p align="center">
