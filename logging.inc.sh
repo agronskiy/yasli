@@ -14,9 +14,12 @@ __repeat() {
 }
 
 __make_indent() {
-  n=$(( ${INDENT_NUM:-1} - 1 ))
+  n=$(( ${INDENT_NUM:-1} - 2 ))
   indent='~'
-  indent=$indent"$(__repeat $n '~~├─~' )"
+  indent=$indent"$(__repeat $n '~~│~~' )" # ''
+  if [ $n -ge 0 ]; then
+    indent=$indent"~~├─~"
+  fi
   echo $indent | sed 's/~/ /g'
 }
 

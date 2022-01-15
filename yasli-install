@@ -21,6 +21,9 @@ fi
 
 [ "$(uname -s)" == "Linux" ] && prepare_debian_installation
 
+log_info "Running installers"
+INDENT_NUM=2
+
 # Priority install: everything that normal install needs.
 failed_installers=()
 install_order=( "yasli.pre" "yasli" "yasli.post" )
@@ -53,8 +56,9 @@ do
     done
 done
 
+INDENT_NUM=1
 if [ ! ${#failed_installers[@]} -eq 0 ]; then
     log_fail "Some installers failed: ${failed_installers[@]}"
 fi
 
-log_success "Done!"
+log_success "Installers done!"

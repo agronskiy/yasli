@@ -86,6 +86,7 @@ __link_single_file () {
 
 __link_all_dotfiles () {
     log_info 'Linking all dotfiles'
+    INDENT_NUM=2
 
     local overwrite_all=false backup_all=false skip_all=false
 
