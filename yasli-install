@@ -19,7 +19,8 @@ else
   SUDO_CMD=
 fi
 
-[ "$(uname -s)" == "Linux" ] && prepare_debian_installation
+# This might be not needed on non-sudo version
+# [ "$(uname -s)" == "Linux" ] && prepare_debian_installation
 
 log_info "Running installers"
 INDENT_NUM=2
